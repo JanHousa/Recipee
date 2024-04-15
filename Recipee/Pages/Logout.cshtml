@@ -1,0 +1,8 @@
+﻿@page
+@model LogoutModel
+@if (User.Identity.IsAuthenticated)
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-page="/Logout">Logout</a>
+    </li>
+}

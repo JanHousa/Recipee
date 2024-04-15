@@ -1,25 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
-
 
 namespace Recipee.Models
 {
-    public class ApplicationDbContext : DbContext
+    // DbContext je nyní IdentityDbContext, který přijímá IdentityUser jako výchozí typ uživatele.
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
         public DbSet<Recipe> Recipes { get; set; }
-        public DbSet<Ingredient> Ingredients { get; set; } // Add DbSet for Ingredient
+        public DbSet<Ingredient> Ingredients { get; set; } // Přidán DbSet pro Ingredient
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder); // Důležité pro správnou konfiguraci Identity
 
-            modelBuilder.Entity<Ingredient>().HasKey(i => i.Id);  // Nastavení primárního klíče
+            // Nastavení primárního klíče pro Ingredient
+            modelBuilder.Entity<Ingredient>().HasKey(i => i.Id);
 
-            // Přidání dat pro Recipes a Ingredients
+            // Přidání seed dat pro Recipes a Ingredients
             modelBuilder.Entity<Recipe>().HasData(
                 new Recipe
                 {
@@ -45,9 +48,8 @@ namespace Recipee.Models
 
             modelBuilder.Entity<Ingredient>().HasData(
                 new Ingredient { Id = 1, RecipeId = 1, Name = "Čokoláda", Amount = "200g" }
-                // další ingredience
+                // Přidat další ingredience pokud potřebujete
             );
         }
-
     }
 }
