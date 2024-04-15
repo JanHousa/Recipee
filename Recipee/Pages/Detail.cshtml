@@ -1,0 +1,15 @@
+﻿@page "{id:int}"
+@model DetailModel
+
+<h1>@Model.Recipe.Title</h1>
+<img src="@Model.Recipe.ImageUrl" alt="Obrázek receptu">
+<p>@Model.Recipe.Description</p>
+<p><strong>Instrukce:</strong> @Model.Recipe.Instructions</p>
+
+<h2>Ingredience</h2>
+<ul>
+    @foreach (var ingredient in Model.Recipe.Ingredients)
+    {
+        <li>@ingredient.Name: @ingredient.Amount</li>
+    }
+</ul>

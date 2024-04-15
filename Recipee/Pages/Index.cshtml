@@ -9,7 +9,8 @@
             <h2>@recipe.Title</h2>
             <img src="@recipe.ImageUrl" alt="Obrazek receptu">
             <p>@recipe.Description</p>
-            <a href="/Recipes/Detail/@recipe.Id">Více informací</a>
+            <a asp-page="/Detail" asp-route-id="@recipe.Id">Více informací</a>
+
         </div>
     }
 </div>
@@ -22,7 +23,8 @@
             <h2>@recipe.Title</h2>
             <img src="@recipe.ImageUrl" alt="Obrazek receptu">
             <p>@recipe.Description</p>
-            <a href="/Recipes/Detail/@recipe.Id">Více informací</a>
+            <a asp-page="/Detail" asp-route-id="@recipe.Id">Více informací</a>
+
         </div>
     }
 </div>
