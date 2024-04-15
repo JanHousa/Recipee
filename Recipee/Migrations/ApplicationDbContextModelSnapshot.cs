@@ -87,7 +87,7 @@ namespace Recipee.Migrations
                         {
                             Id = 1,
                             AverageRating = 4.5,
-                            CreatedDate = new DateTime(2024, 4, 15, 21, 16, 44, 518, DateTimeKind.Local).AddTicks(4396),
+                            CreatedDate = new DateTime(2024, 4, 15, 23, 24, 46, 564, DateTimeKind.Local).AddTicks(6004),
                             Description = "Bohatý čokoládový dort s třemi vrstvami.",
                             ImageUrl = "url_k_obrazku_dortu",
                             Instructions = "Smíchejte suroviny a pečte na 180°C 50 minut.",
@@ -97,7 +97,7 @@ namespace Recipee.Migrations
                         {
                             Id = 2,
                             AverageRating = 4.0,
-                            CreatedDate = new DateTime(2024, 4, 15, 21, 16, 44, 518, DateTimeKind.Local).AddTicks(4434),
+                            CreatedDate = new DateTime(2024, 4, 15, 23, 24, 46, 564, DateTimeKind.Local).AddTicks(6038),
                             Description = "Klasický Caesar salát s kuřecím masem.",
                             ImageUrl = "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg",
                             Instructions = "Smíchejte a podávejte čerstvé.",

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
-namespace Recipee.Pages
+namespace Recipee.Pages 
 {
     public class LoginModel : PageModel
     {

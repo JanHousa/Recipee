@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Recipee.Models;
 
 namespace Recipee.Pages
 {
+    [Authorize]
     public class CreateRecipeModel : PageModel
     {
         private readonly ApplicationDbContext _context;

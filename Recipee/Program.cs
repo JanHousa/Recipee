@@ -1,20 +1,18 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Recipee.Models;
-using Recipee.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllers(); // If you are using APIs
 
-builder.Services.AddControllers(); // Pøidává podporu pro kontrolery
-// Pøidání DbContext s konfigurací pro SQLite
+// Adding DbContext configuration for SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<RecipeService>();
-
+// Add Identity services and specify IdentityUser for the user's store
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -32,11 +30,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Ujistìte se, že je povoleno, pokud používáte autentizaci
+app.UseAuthentication(); // This is crucial, ensures the authentication services are available
 app.UseAuthorization();
 
 app.MapRazorPages();
-
 app.MapControllers();
 
 app.Run();
