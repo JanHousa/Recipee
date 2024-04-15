@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+
+<h1>Nejnovější recepty</h1>
+<div class="container">
+    @foreach (var recipe in Model.LatestRecipes)
+    {
+        <div class="recipe-card">
+            <h2>@recipe.Title</h2>
+            <img src="@recipe.ImageUrl" alt="Obrazek receptu">
+            <p>@recipe.Description</p>
+            <a href="/Recipes/Detail/@recipe.Id">Více informací</a>
+        </div>
+    }
+</div>
+
+<h1>Nejlépe hodnocené recepty</h1>
+<div class="container">
+    @foreach (var recipe in Model.TopRatedRecipes)
+    {
+        <div class="recipe-card">
+            <h2>@recipe.Title</h2>
+            <img src="@recipe.ImageUrl" alt="Obrazek receptu">
+            <p>@recipe.Description</p>
+            <a href="/Recipes/Detail/@recipe.Id">Více informací</a>
+        </div>
+    }
+</div>
+
+@functions {
+    private void RedirectToRecipePage(int recipeId)
+    {
+        // Generate the recipe page URL based on the recipeId
+        string recipePageUrl = $"/Recipes/Detail/{recipeId}";
+
+        // Redirect the user to the recipe page
+        RedirectToPage(recipePageUrl);
+    }
+}

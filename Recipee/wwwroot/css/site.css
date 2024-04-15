@@ -1,0 +1,66 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.recipe-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+    .recipe-card img {
+        width: 100%;
+        height: auto;
+    }
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.recipe-card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    width: 300px;
+    margin: 10px;
+}
+
+    .recipe-card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .recipe-card h2 {
+        padding: 0.5em;
+    }
+
+    .recipe-card p {
+        padding: 0 0.5em;
+        font-size: 1em;
+    }
+
+a {
+    text-decoration: none;
+    color: blue;
+}
