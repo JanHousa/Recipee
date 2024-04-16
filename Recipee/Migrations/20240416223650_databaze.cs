@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Recipee.Migrations
 {
     /// <inheritdoc />
-    public partial class migrace : Migration
+    public partial class databaze : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -230,21 +230,36 @@ namespace Recipee.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "IsAdmin", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "", "admin@example.com", true, true, true, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEAHKiwPB7ngHgFg1vB0eTVGJcQbQu3AQwN2GyjSujTjs2V3DHLdFwBFZBQ0HL3gLTQ==", null, false, "", false, "admin" });
+                values: new object[] { "1", 0, "0c64260a-273e-4cd7-bade-37e407124af1", "admin@example.com", true, true, true, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEIY52MRlwIbsUWOxRgPwpm4+ym1I81K5KH2RXEtEANUFGTn3fCwuj3IJlZ66rXNZkw==", null, false, "4917c76c-b809-4710-a970-23aed457a8e8", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Recipes",
                 columns: new[] { "Id", "AverageRating", "CreatedDate", "Description", "ImageUrl", "Instructions", "Title" },
                 values: new object[,]
                 {
-                    { 1, 4.5, new DateTime(2024, 4, 17, 0, 4, 20, 924, DateTimeKind.Local).AddTicks(7482), "Bohatý čokoládový dort s třemi vrstvami.", "url_k_obrazku_dortu", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
-                    { 2, 4.0, new DateTime(2024, 4, 17, 0, 4, 20, 924, DateTimeKind.Local).AddTicks(7522), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
+                    { 1, 4.5, new DateTime(2024, 4, 17, 0, 36, 50, 250, DateTimeKind.Local).AddTicks(3578), "Bohatý čokoládový dort s třemi vrstvami.", "https://vikendovepeceni.cz/wp-content/uploads/2021/09/cokoladovy-dort-03.jpg", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
+                    { 2, 4.0, new DateTime(2024, 4, 17, 0, 36, 50, 250, DateTimeKind.Local).AddTicks(3613), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Ingredients",
                 columns: new[] { "Id", "Amount", "Name", "RecipeId" },
-                values: new object[] { 1, "200g", "Čokoláda", 1 });
+                values: new object[,]
+                {
+                    { 1, "200g", "Čokoláda", 1 },
+                    { 2, "100ml", "Mléko", 1 },
+                    { 3, "200ml", "Smetana", 1 },
+                    { 4, "400g", "Mascarpone", 1 },
+                    { 5, "1 hlávka", "Ledový salát", 2 },
+                    { 6, "200g", "Kuřecí prsa", 2 },
+                    { 7, "50g", "Krutony", 2 },
+                    { 8, "50g", "Parmazán", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "Comment", "CreatedDate", "Rating", "RecipeId", "UserId" },
+                values: new object[] { 1, "Skvělý dort!", new DateTime(2024, 4, 17, 0, 36, 50, 289, DateTimeKind.Local).AddTicks(3372), 4, 1, "1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

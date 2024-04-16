@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Recipee.Models;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 public class DetailModel : PageModel
@@ -27,7 +28,8 @@ public class DetailModel : PageModel
     {
         Recipe = await _context.Recipes
                                .Include(r => r.Reviews)
-                                   .ThenInclude(review => review.User) // Ensure the User object is included
+                                   .ThenInclude(review => review.User) // Load reviewers
+                               .Include(r => r.Ingredients) // Make sure to load ingredients
                                .FirstOrDefaultAsync(m => m.Id == id);
         if (Recipe == null)
         {
@@ -36,6 +38,8 @@ public class DetailModel : PageModel
         Reviews = Recipe.Reviews ?? new List<Review>(); // Ensure Reviews is never null
         return Page();
     }
+
+
 
 
     public async Task<IActionResult> OnPostAsync(int id)
@@ -47,7 +51,7 @@ public class DetailModel : PageModel
             return Page();
         }
 
-        Recipe = await _context.Recipes.FirstOrDefaultAsync(m => m.Id == id);
+        Recipe = await _context.Recipes.Include(r => r.Reviews).FirstOrDefaultAsync(m => m.Id == id);
         if (Recipe == null)
         {
             return NotFound("Recipe not found.");
@@ -55,28 +59,33 @@ public class DetailModel : PageModel
 
         if (!ModelState.IsValid)
         {
-            // Optionally reload the reviews if you're showing them on the same page
-            Reviews = await _context.Reviews.Where(r => r.RecipeId == id).ToListAsync();
+            // It's helpful to log or output the ModelState errors here
+            foreach (var error in ModelState.Values.SelectMany(m => m.Errors))
+            {
+                Debug.WriteLine(error.ErrorMessage);
+            }
             return Page();
         }
 
-        NewReview.User = user;
-        NewReview.RecipeId = id;
+        NewReview.UserId = user.Id; // This should be sufficient if the user is correctly attached
+        _context.Reviews.Add(NewReview);
 
         try
         {
-            _context.Reviews.Add(NewReview);
             await _context.SaveChangesAsync();
         }
-        catch (DbUpdateException ex)
+        catch (Exception ex)
         {
-            // Log the exception (using a logging framework)
+            // Log or output the exception message
+            Debug.WriteLine(ex.Message);
             ModelState.AddModelError("", "An error occurred while saving the review.");
             return Page();
         }
 
         return RedirectToPage(new { id = id });
     }
+
+
 
 
 

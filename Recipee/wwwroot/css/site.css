@@ -48,7 +48,7 @@ body {
 
     .recipe-card img {
         width: 100%;
-        height: auto;
+        height: 200px;
     }
 
     .recipe-card h2 {
@@ -143,4 +143,93 @@ a {
         margin-left: 0;
         margin-top: 10px;
     }
+}
+
+
+/* Basic styling for the page */
+.detail-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+/* Styling for review entries */
+.review-entry {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.review-rating {
+    color: gold;
+    font-size: 20px; /* Adjust size as needed */
+}
+
+/* Display stars for rating using Unicode characters */
+.stars-outer {
+    display: inline-block;
+    position: relative;
+    unicode-bidi: bidi-override;
+    font-size: 20px; /* Adjust size as needed */
+}
+
+.stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    color: gold;
+}
+
+/* Adjust width here based on rating - 20% per star if using 5 star system */
+.star-rating-five {
+    width: 100%;
+}
+/* Example for a 5-star rating */
+.star-rating-four {
+    width: 80%;
+}
+/* Example for a 4-star rating */
+.star-rating-three {
+    width: 60%;
+}
+/* Example for a 3-star rating */
+.star-rating-two {
+    width: 40%;
+}
+/* Example for a 2-star rating */
+.star-rating-one {
+    width: 20%;
+}
+/* Example for a 1-star rating */
+
+/* Base style for outer star container */
+.stars-outer {
+    unicode-bidi: bidi-override;
+    color: #c5c5c5;
+    font-size: 18px;
+}
+
+/* Style for the filled part of the stars */
+.stars-inner {
+    color: #f5eb3b; /* Gold color */
+    padding-right: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    position: absolute;
+}
+
+/* General style adjustments for reviews */
+.review-entry {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.fa-star.checked {
+    color: orange;
 }

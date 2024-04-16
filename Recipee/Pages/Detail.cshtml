@@ -1,36 +1,60 @@
 ﻿@page
 @model DetailModel
 
-<h2>@Model.Recipe.Title</h2>
-<img src="@Model.Recipe.ImageUrl" alt="Obrazek receptu">
-<p>@Model.Recipe.Description</p>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
 
-<h3>Recenze</h3>
-@if (Model.Reviews != null)
-{
-    @foreach (var review in Model.Reviews)
+<div class="detail-container">
+    <h2>@Model.Recipe.Title</h2>
+    <img src="@Model.Recipe.ImageUrl" alt="Obrazek receptu" style="max-width: 100%;">
+    <p>@Model.Recipe.Description</p>
+
+    <h3>Ingredients</h3>
+    <ul>
+        @if (Model.Recipe.Ingredients != null && Model.Recipe.Ingredients.Count > 0)
+        {
+            foreach (var ingredient in Model.Recipe.Ingredients)
+            {
+                <li>@ingredient.Name - @ingredient.Amount</li>
+            }
+        }
+        else
+        {
+            <p>No ingredients listed for this recipe.</p>
+        }
+    </ul>
+
+    <h3>Reviews</h3>
+    @if (Model.Reviews != null)
     {
-        <p>@review.User.UserName
-            : @review.Comment
-            (@review.Rating
-            / 5)</p>
+        foreach (var review in Model.Reviews)
+        {
+            <div class="review-entry">
+                <p><strong>@(review.User?.UserName ?? "Unknown User")</strong>: @review.Comment</p>
+                <div class="stars-outer">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <span class="fa fa-star @(i < review.Rating ? "checked" : "")"></span>
+                    }
+                </div>
+            </div>
+        }
     }
-}
-@if (User.Identity.IsAuthenticated)
-{
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="NewReview.Comment"></label>
-            <input asp-for="NewReview.Comment" class="form-control" />
-            <span asp-validation-for="NewReview.Comment" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="NewReview.Rating"></label>
-            <input asp-for="NewReview.Rating" class="form-control" type="number" min="1" max="5" />
-            <span asp-validation-for="NewReview.Rating" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Add Review</button>
-    </form>
-
-}
-
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="NewReview.Comment" class="form-label">Comment</label>
+                <input asp-for="NewReview.Comment" class="form-control" />
+                <span asp-validation-for="NewReview.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewReview.Rating" class="form-label">Rating</label>
+                <input asp-for="NewReview.Rating" class="form-control" type="number" min="1" max="5" />
+                <span asp-validation-for="NewReview.Rating" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Review</button>
+        </form>
+    }
+</div>

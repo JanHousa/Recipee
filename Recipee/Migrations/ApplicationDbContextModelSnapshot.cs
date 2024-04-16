@@ -47,6 +47,55 @@ namespace Recipee.Migrations
                             Amount = "200g",
                             Name = "Čokoláda",
                             RecipeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = "100ml",
+                            Name = "Mléko",
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = "200ml",
+                            Name = "Smetana",
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Amount = "400g",
+                            Name = "Mascarpone",
+                            RecipeId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Amount = "1 hlávka",
+                            Name = "Ledový salát",
+                            RecipeId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Amount = "200g",
+                            Name = "Kuřecí prsa",
+                            RecipeId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Amount = "50g",
+                            Name = "Krutony",
+                            RecipeId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Amount = "50g",
+                            Name = "Parmazán",
+                            RecipeId = 2
                         });
                 });
 
@@ -219,9 +268,9 @@ namespace Recipee.Migrations
                         {
                             Id = 1,
                             AverageRating = 4.5,
-                            CreatedDate = new DateTime(2024, 4, 17, 0, 4, 20, 924, DateTimeKind.Local).AddTicks(7482),
+                            CreatedDate = new DateTime(2024, 4, 17, 0, 36, 50, 250, DateTimeKind.Local).AddTicks(3578),
                             Description = "Bohatý čokoládový dort s třemi vrstvami.",
-                            ImageUrl = "url_k_obrazku_dortu",
+                            ImageUrl = "https://vikendovepeceni.cz/wp-content/uploads/2021/09/cokoladovy-dort-03.jpg",
                             Instructions = "Smíchejte suroviny a pečte na 180°C 50 minut.",
                             Title = "Čokoládový dort"
                         },
@@ -229,7 +278,7 @@ namespace Recipee.Migrations
                         {
                             Id = 2,
                             AverageRating = 4.0,
-                            CreatedDate = new DateTime(2024, 4, 17, 0, 4, 20, 924, DateTimeKind.Local).AddTicks(7522),
+                            CreatedDate = new DateTime(2024, 4, 17, 0, 36, 50, 250, DateTimeKind.Local).AddTicks(3613),
                             Description = "Klasický Caesar salát s kuřecím masem.",
                             ImageUrl = "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg",
                             Instructions = "Smíchejte a podávejte čerstvé.",
@@ -308,16 +357,16 @@ namespace Recipee.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "",
+                            ConcurrencyStamp = "0c64260a-273e-4cd7-bade-37e407124af1",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             IsAdmin = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAHKiwPB7ngHgFg1vB0eTVGJcQbQu3AQwN2GyjSujTjs2V3DHLdFwBFZBQ0HL3gLTQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIY52MRlwIbsUWOxRgPwpm4+ym1I81K5KH2RXEtEANUFGTn3fCwuj3IJlZ66rXNZkw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
+                            SecurityStamp = "4917c76c-b809-4710-a970-23aed457a8e8",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -353,6 +402,17 @@ namespace Recipee.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comment = "Skvělý dort!",
+                            CreatedDate = new DateTime(2024, 4, 17, 0, 36, 50, 289, DateTimeKind.Local).AddTicks(3372),
+                            Rating = 4,
+                            RecipeId = 1,
+                            UserId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Ingredient", b =>

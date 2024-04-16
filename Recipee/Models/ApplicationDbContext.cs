@@ -68,7 +68,16 @@ namespace Recipee.Models
 
             // Seed data for Ingredients
             modelBuilder.Entity<Ingredient>().HasData(
-                new Ingredient { Id = 1, RecipeId = 1, Name = "Čokoláda", Amount = "200g" }
+                new Ingredient { Id = 1, RecipeId = 1, Name = "Čokoláda", Amount = "200g" },
+                new Ingredient { Id = 2, RecipeId = 1, Name = "Mléko", Amount = "100ml" },
+                new Ingredient { Id = 3, RecipeId = 1, Name = "Smetana", Amount = "200ml" },
+                new Ingredient { Id = 4, RecipeId = 1, Name = "Mascarpone", Amount = "400g" },
+                    new Ingredient { Id = 5, RecipeId = 2, Name = "Ledový salát", Amount = "1 hlávka" },
+                    new Ingredient { Id = 6, RecipeId = 2, Name = "Kuřecí prsa", Amount = "200g" },
+                    new Ingredient { Id = 7, RecipeId = 2, Name = "Krutony", Amount = "50g" },
+                    new Ingredient { Id = 8, RecipeId = 2, Name = "Parmazán", Amount = "50g" }
+
+
             // Add more ingredients as needed
             );
 
@@ -90,6 +99,18 @@ namespace Recipee.Models
                     IsAdmin = true
                 }
             );
+
+            modelBuilder.Entity<Review>().HasData(
+                               new Review
+                               {
+                    Id = 1,
+                    UserId = "1",
+                    RecipeId = 1,
+                    Rating = 4,
+                    Comment = "Skvělý dort!",
+                    CreatedDate = DateTime.Now
+                }
+                                          );
         }
 
     }
