@@ -1,4 +1,7 @@
-﻿public class Recipe
+﻿using Microsoft.AspNetCore.Identity;
+using Recipee.Models;
+
+public class Recipe
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -26,4 +29,17 @@ public class User
     public string Email { get; set; }
     public string PasswordHash { get; set; }
     public Boolean IsAdmin { get; set; } = false;
+}
+
+
+public class Review
+{
+    public int Id { get; set; }
+    public string UserId { get; set; }
+    public AppUser User { get; set; }
+    public int RecipeId { get; set; }
+    public Recipe Recipe { get; set; }
+    public int Rating { get; set; }
+    public string Comment { get; set; }
+    public DateTime CreatedDate { get; set; }
 }

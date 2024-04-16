@@ -1,15 +1,26 @@
-﻿@page "{id:int}"
+﻿@page
 @model DetailModel
 
-<h1>@Model.Recipe.Title</h1>
-<img src="@Model.Recipe.ImageUrl" alt="Obrázek receptu">
+<h2>@Model.Recipe.Title</h2>
+<img src="@Model.Recipe.ImageUrl" alt="Obrazek receptu">
 <p>@Model.Recipe.Description</p>
-<p><strong>Instrukce:</strong> @Model.Recipe.Instructions</p>
 
-<h2>Ingredience</h2>
-<ul>
-    @foreach (var ingredient in Model.Recipe.Ingredients)
+<h3>Recenze</h3>
+@if (Model.Reviews != null)
+{
+    @foreach (var review in Model.Reviews)
     {
-        <li>@ingredient.Name: @ingredient.Amount</li>
+        <p>@review.User.UserName
+            : @review.Comment
+            (@review.Rating
+            /5)</p>
     }
-</ul>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <form method="post">
+        <input asp-for="NewReview.Comment" class="form-control" />
+        <input asp-for="NewReview.Rating" class="form-control" type="number" min="1" max="5" />
+        <button type="submit">Přidat recenzi</button>
+    </form>
+}

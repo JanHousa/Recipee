@@ -5,7 +5,7 @@ namespace Recipee.Models
     public class AppUser : IdentityUser
     {
 
-        public bool IsAdmin { get; set; } = false;
+        public bool IsAdmin { get; set; } = true;
 
     }
 }

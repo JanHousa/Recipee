@@ -219,7 +219,7 @@ namespace Recipee.Migrations
                         {
                             Id = 1,
                             AverageRating = 4.5,
-                            CreatedDate = new DateTime(2024, 4, 16, 12, 40, 50, 867, DateTimeKind.Local).AddTicks(9857),
+                            CreatedDate = new DateTime(2024, 4, 16, 20, 52, 39, 760, DateTimeKind.Local).AddTicks(9392),
                             Description = "Bohatý čokoládový dort s třemi vrstvami.",
                             ImageUrl = "url_k_obrazku_dortu",
                             Instructions = "Smíchejte suroviny a pečte na 180°C 50 minut.",
@@ -229,7 +229,7 @@ namespace Recipee.Migrations
                         {
                             Id = 2,
                             AverageRating = 4.0,
-                            CreatedDate = new DateTime(2024, 4, 16, 12, 40, 50, 867, DateTimeKind.Local).AddTicks(9937),
+                            CreatedDate = new DateTime(2024, 4, 16, 20, 52, 39, 760, DateTimeKind.Local).AddTicks(9426),
                             Description = "Klasický Caesar salát s kuřecím masem.",
                             ImageUrl = "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg",
                             Instructions = "Smíchejte a podávejte čerstvé.",
@@ -306,7 +306,7 @@ namespace Recipee.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "admin-id",
+                            Id = "1",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "",
                             Email = "admin@example.com",
@@ -315,7 +315,7 @@ namespace Recipee.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEaWPOFVyh1i1FAvWalM0By+ID3TQydXQ+/AtrRCITpoIl+P0r89u5EKiefiyBqapw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC2QblKian6weMfhQWVy59jxlBwJvuNY+DVb3tSbwO8Q5LOCvlndy8anzApGnpJTqA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -323,30 +323,36 @@ namespace Recipee.Migrations
                         });
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsAdmin")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Rating")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Ingredient", b =>
@@ -409,6 +415,25 @@ namespace Recipee.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Review", b =>
+                {
+                    b.HasOne("Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Recipee.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Recipe", b =>

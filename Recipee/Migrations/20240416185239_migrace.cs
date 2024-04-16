@@ -72,22 +72,6 @@ namespace Recipee.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: false),
-                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -214,18 +198,47 @@ namespace Recipee.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    RecipeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Rating = table.Column<int>(type: "INTEGER", nullable: false),
+                    Comment = table.Column<string>(type: "TEXT", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "IsAdmin", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "admin-id", 0, "", "admin@example.com", true, true, true, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEEaWPOFVyh1i1FAvWalM0By+ID3TQydXQ+/AtrRCITpoIl+P0r89u5EKiefiyBqapw==", null, false, "", false, "admin" });
+                values: new object[] { "1", 0, "", "admin@example.com", true, true, true, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEC2QblKian6weMfhQWVy59jxlBwJvuNY+DVb3tSbwO8Q5LOCvlndy8anzApGnpJTqA==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Recipes",
                 columns: new[] { "Id", "AverageRating", "CreatedDate", "Description", "ImageUrl", "Instructions", "Title" },
                 values: new object[,]
                 {
-                    { 1, 4.5, new DateTime(2024, 4, 16, 12, 40, 50, 867, DateTimeKind.Local).AddTicks(9857), "Bohatý čokoládový dort s třemi vrstvami.", "url_k_obrazku_dortu", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
-                    { 2, 4.0, new DateTime(2024, 4, 16, 12, 40, 50, 867, DateTimeKind.Local).AddTicks(9937), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
+                    { 1, 4.5, new DateTime(2024, 4, 16, 20, 52, 39, 760, DateTimeKind.Local).AddTicks(9392), "Bohatý čokoládový dort s třemi vrstvami.", "url_k_obrazku_dortu", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
+                    { 2, 4.0, new DateTime(2024, 4, 16, 20, 52, 39, 760, DateTimeKind.Local).AddTicks(9426), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
                 });
 
             migrationBuilder.InsertData(
@@ -274,6 +287,16 @@ namespace Recipee.Migrations
                 name: "IX_Ingredients_RecipeId",
                 table: "Ingredients",
                 column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_RecipeId",
+                table: "Reviews",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_UserId",
+                table: "Reviews",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -298,7 +321,7 @@ namespace Recipee.Migrations
                 name: "Ingredients");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

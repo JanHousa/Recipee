@@ -1,0 +1,69 @@
+﻿@page
+@model Recipee.Pages.AdminDashboardModel
+
+<h2>Admin Dashboard</h2>
+
+<h3>Users</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Is Admin</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>@user.IsAdmin</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Recipes</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Ingredients Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var recipe in Model.Recipes)
+        {
+            <tr>
+                <td>@recipe.Title</td>
+                <td>@recipe.Description</td>
+                <td>@recipe.Ingredients.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Reviews</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Recipe</th>
+            <th>User Email</th>
+            <th>Rating</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model.Reviews)
+        {
+            <tr>
+                <td>@review.Recipe.Title</td>
+                <td>@review.User.Email</td>
+                <td>@review.Rating</td>
+                <td>@review.Comment</td>
+            </tr>
+        }
+    </tbody>
+</table>

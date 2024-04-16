@@ -14,6 +14,7 @@ namespace Recipee.Models
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; } // Přidán DbSet pro Ingredient
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
