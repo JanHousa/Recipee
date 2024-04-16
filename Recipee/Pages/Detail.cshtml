@@ -13,14 +13,24 @@
         <p>@review.User.UserName
             : @review.Comment
             (@review.Rating
-            /5)</p>
+            / 5)</p>
     }
 }
 @if (User.Identity.IsAuthenticated)
 {
     <form method="post">
-        <input asp-for="NewReview.Comment" class="form-control" />
-        <input asp-for="NewReview.Rating" class="form-control" type="number" min="1" max="5" />
-        <button type="submit">Přidat recenzi</button>
+        <div class="form-group">
+            <label asp-for="NewReview.Comment"></label>
+            <input asp-for="NewReview.Comment" class="form-control" />
+            <span asp-validation-for="NewReview.Comment" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NewReview.Rating"></label>
+            <input asp-for="NewReview.Rating" class="form-control" type="number" min="1" max="5" />
+            <span asp-validation-for="NewReview.Rating" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Review</button>
     </form>
+
 }
+

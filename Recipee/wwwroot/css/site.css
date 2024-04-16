@@ -64,3 +64,83 @@ a {
     text-decoration: none;
     color: blue;
 }
+
+/* CreateRecipe.css */
+
+/* General form spacing and alignment */
+
+/* Default styles for the form */
+.recipe-container {
+    width: 500px;
+    margin: 0 auto; /* Center form on the page when width is fixed */
+    padding: 20px;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 550px) {
+    .recipe-container {
+        width: 80vw; /* Full width on small screens */
+         /* Add some space around the form */
+    }
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Ingredient container specifics */
+.ingredients-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+/* Individual ingredient input group */
+.ingredient-group {
+    display: flex;
+    gap: 10px; /* Provides space between inputs and button */
+    margin-bottom: 10px;
+    align-items: center; /* Aligns items vertically */
+}
+
+    .ingredient-group input[type="text"] {
+        flex-grow: 1; /* Allows input to grow and fill space */
+        margin-bottom: 0; /* Overrides previous margin-bottom */
+    }
+
+/* Style for ingredient name and amount inputs */
+.ingredient-group .form-control {
+    margin-right: 10px;
+    flex-grow: 1;
+    margin-bottom: 5px; /* for smaller screens */
+}
+
+/* Button to remove an ingredient */
+.remove-ingredient {
+    flex-shrink: 0; /* Prevents the button from shrinking */
+}
+
+/* Add Ingredient button */
+#addIngredient {
+    margin-top: 10px;
+}
+
+/* Submit button at the bottom of the form */
+.btn-primary {
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .ingredient-group {
+        flex-direction: column;
+    }
+
+    .remove-ingredient {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

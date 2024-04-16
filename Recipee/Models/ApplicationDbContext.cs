@@ -18,12 +18,31 @@ namespace Recipee.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); // Důležité pro správnou konfiguraci Identity
+            base.OnModelCreating(modelBuilder);
 
-            // Nastavení primárního klíče pro Ingredient
-            modelBuilder.Entity<Ingredient>().HasKey(i => i.Id);
+            // Configure Ingredient
+            modelBuilder.Entity<Ingredient>()
+                .HasKey(i => i.Id);
 
-            // Přidání seed dat pro Recipes a Ingredients
+            // Configure Recipe and related entities
+            modelBuilder.Entity<Recipe>()
+                .HasMany(r => r.Ingredients)
+                .WithOne(i => i.Recipe)
+                .HasForeignKey(i => i.RecipeId);
+
+            modelBuilder.Entity<Recipe>()
+                .HasMany(r => r.Reviews)
+                .WithOne(rv => rv.Recipe)
+                .HasForeignKey(rv => rv.RecipeId);
+
+            // Configure Review and User relationship
+            modelBuilder.Entity<Review>()
+                .HasOne<AppUser>(r => r.User)
+                .WithMany() // Assuming no navigation property back from User to Reviews
+                .HasForeignKey(r => r.UserId)
+                .IsRequired();
+
+            // Seed data for Recipes
             modelBuilder.Entity<Recipe>().HasData(
                 new Recipe
                 {
@@ -33,7 +52,7 @@ namespace Recipee.Models
                     Instructions = "Smíchejte suroviny a pečte na 180°C 50 minut.",
                     CreatedDate = DateTime.Now,
                     AverageRating = 4.5,
-                    ImageUrl = "url_k_obrazku_dortu"
+                    ImageUrl = "https://vikendovepeceni.cz/wp-content/uploads/2021/09/cokoladovy-dort-03.jpg"
                 },
                 new Recipe
                 {
@@ -47,13 +66,13 @@ namespace Recipee.Models
                 }
             );
 
+            // Seed data for Ingredients
             modelBuilder.Entity<Ingredient>().HasData(
                 new Ingredient { Id = 1, RecipeId = 1, Name = "Čokoláda", Amount = "200g" }
-            // Přidat další ingredience pokud potřebujete
+            // Add more ingredients as needed
             );
 
-            // Přidání seed dat pro Users
-            
+            // Seed data for Users
             modelBuilder.Entity<AppUser>().HasData(
                 new AppUser
                 {
@@ -63,15 +82,15 @@ namespace Recipee.Models
                     Email = "admin@example.com",
                     NormalizedEmail = "ADMIN@EXAMPLE.COM",
                     EmailConfirmed = true,
-                    PasswordHash = new PasswordHasher<AppUser>().HashPassword(null, "admin"),
-                    SecurityStamp = string.Empty,
-                    ConcurrencyStamp = string.Empty,
+                    PasswordHash = new PasswordHasher<AppUser>().HashPassword(null, "admin123"), // Update password here
+                    SecurityStamp = Guid.NewGuid().ToString(), // Use a new GUID for security stamp
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
                     LockoutEnabled = true,
                     AccessFailedCount = 0,
                     IsAdmin = true
                 }
-
             );
         }
+
     }
 }

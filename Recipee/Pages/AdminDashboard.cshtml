@@ -1,69 +1,118 @@
 ﻿@page
 @model Recipee.Pages.AdminDashboardModel
 
-<h2>Admin Dashboard</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="container py-4">
+        <h1 class="text-center mb-4">@ViewData["Title"]</h1>
 
-<h3>Users</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Is Admin</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model.Users)
-        {
-            <tr>
-                <td>@user.Email</td>
-                <td>@user.UserName</td>
-                <td>@user.IsAdmin</td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-3">
+                    <div class="card-header bg-primary text-white">
+                        <h2>Users</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Username</th>
+                                    <th>Is Admin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model.Users)
+                                {
+                                    <tr>
+                                        <td>@user.Email</td>
+                                        <td>@user.UserName</td>
+                                        <td>@user.IsAdmin</td>
+                                        <td>
+                                            <form method="post" asp-page-handler="DeleteUser" asp-route-id="@user.Id">
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-<h3>Recipes</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Ingredients Count</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var recipe in Model.Recipes)
-        {
-            <tr>
-                <td>@recipe.Title</td>
-                <td>@recipe.Description</td>
-                <td>@recipe.Ingredients.Count</td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <div class="card mb-3">
+                    <div class="card-header bg-primary text-white">
+                        <h2>Recipes</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Ingredients Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var recipe in Model.Recipes)
+                                {
+                                    <tr>
+                                        <td>@recipe.Title</td>
+                                        <td>@recipe.Description</td>
+                                        <td>@recipe.Ingredients.Count</td>
+                                        <td>
+                                            <form method="post" asp-page-handler="DeleteRecipe" asp-route-id="@recipe.Id">
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                               
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-<h3>Reviews</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Recipe</th>
-            <th>User Email</th>
-            <th>Rating</th>
-            <th>Comment</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var review in Model.Reviews)
-        {
-            <tr>
-                <td>@review.Recipe.Title</td>
-                <td>@review.User.Email</td>
-                <td>@review.Rating</td>
-                <td>@review.Comment</td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2>Reviews</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Recipe</th>
+                                    <th>User Email</th>
+                                    <th>Rating</th>
+                                    <th>Comment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var review in Model.Reviews)
+                                {
+                                    <tr>
+                                        <td>@review.Recipe.Title</td>
+                                        <td>@review.User.Email</td>
+                                        <td>@review.Rating</td>
+                                        <td>@review.Comment</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

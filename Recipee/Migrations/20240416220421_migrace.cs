@@ -230,15 +230,15 @@ namespace Recipee.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "IsAdmin", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "", "admin@example.com", true, true, true, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEC2QblKian6weMfhQWVy59jxlBwJvuNY+DVb3tSbwO8Q5LOCvlndy8anzApGnpJTqA==", null, false, "", false, "admin" });
+                values: new object[] { "1", 0, "", "admin@example.com", true, true, true, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEAHKiwPB7ngHgFg1vB0eTVGJcQbQu3AQwN2GyjSujTjs2V3DHLdFwBFZBQ0HL3gLTQ==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Recipes",
                 columns: new[] { "Id", "AverageRating", "CreatedDate", "Description", "ImageUrl", "Instructions", "Title" },
                 values: new object[,]
                 {
-                    { 1, 4.5, new DateTime(2024, 4, 16, 20, 52, 39, 760, DateTimeKind.Local).AddTicks(9392), "Bohatý čokoládový dort s třemi vrstvami.", "url_k_obrazku_dortu", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
-                    { 2, 4.0, new DateTime(2024, 4, 16, 20, 52, 39, 760, DateTimeKind.Local).AddTicks(9426), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
+                    { 1, 4.5, new DateTime(2024, 4, 17, 0, 4, 20, 924, DateTimeKind.Local).AddTicks(7482), "Bohatý čokoládový dort s třemi vrstvami.", "url_k_obrazku_dortu", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
+                    { 2, 4.0, new DateTime(2024, 4, 17, 0, 4, 20, 924, DateTimeKind.Local).AddTicks(7522), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
                 });
 
             migrationBuilder.InsertData(

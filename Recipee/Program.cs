@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Recipee.Models;
@@ -23,6 +24,16 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
+
+// Register the custom authorization handler
+builder.Services.AddSingleton<IAuthorizationHandler, IsAdminAuthorizationHandler>();
+
+// Define the authorization policy
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("IsAdminPolicy", policy =>
+        policy.Requirements.Add(new IsAdminRequirement()));
+});
 
 var app = builder.Build();
 

@@ -1,57 +1,76 @@
 ﻿@page
 @model CreateRecipeModel
+<head>
+    <!-- ... other head elements ... -->
+    <link href="~/css/CreateRecipe.css" rel="stylesheet">
+</head>
 
-<form method="post">
-    <div class="form-group">
-        <label asp-for="Recipe.Title"></label>
-        <input asp-for="Recipe.Title" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Recipe.Description"></label>
-        <textarea asp-for="Recipe.Description" class="form-control"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label>Ingredients</label>
-        <div class="ingredients-container">
-            <!-- Ingredients will be added here -->
+<div class="recipe-container ">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Recipe.Title"></label>
+            <input asp-for="Recipe.Title" class="form-control" />
         </div>
-        <button type="button" id="addIngredient" class="btn btn-info">Add Ingredient</button>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="Recipe.Instructions"></label>
-        <textarea asp-for="Recipe.Instructions" class="form-control"></textarea>
-    </div>
+        <div class="form-group">
+            <label asp-for="Recipe.Description"></label>
+            <textarea asp-for="Recipe.Description" class="form-control"></textarea>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Recipe.ImageUrl"></label>
-        <input asp-for="Recipe.ImageUrl" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label>Ingredients</label>
+            <div class="ingredients-container">
+                <!-- Ingredients will be added here -->
+            </div>
+            <button type="button" id="addIngredient" class="btn btn-info">Add Ingredient</button>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        <div class="form-group">
+            <label asp-for="Recipe.Instructions"></label>
+            <textarea asp-for="Recipe.Instructions" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Recipe.ImageUrl"></label>
+            <input asp-for="Recipe.ImageUrl" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
 
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const container = document.querySelector('.ingredients-container');
+            let ingredientIndex = 0; // Keep track of the ingredient index
+
             document.getElementById('addIngredient').addEventListener('click', function () {
                 const ingredientHtml = `
                     <div class="form-group ingredient-group">
-                        <input type="text" name="Recipe.Ingredients[].Name" class="form-control" placeholder="Ingredient Name" required />
-                        <input type="text" name="Recipe.Ingredients[].Amount" class="form-control" placeholder="Amount" required />
+                        <input type="text" name="Recipe.Ingredients[${ingredientIndex}].Name" class="form-control" placeholder="Ingredient Name" required />
+                        <input type="text" name="Recipe.Ingredients[${ingredientIndex}].Amount" class="form-control" placeholder="Amount" required />
                         <button type="button" class="remove-ingredient btn btn-danger">Remove</button>
                     </div>`;
                 container.insertAdjacentHTML('beforeend', ingredientHtml);
+                ingredientIndex++; // Increment index for the next ingredient
             });
 
             container.addEventListener('click', function (e) {
                 if (e.target.classList.contains('remove-ingredient')) {
-                    e.target.parentElement.remove();
+                    e.target.closest('.ingredient-group').remove();
+                    // After removal, reset the indexes
+                    document.querySelectorAll('.ingredient-group').forEach((group, index) => {
+                        const nameInput = group.querySelector('input[type="text"]:first-child');
+                        const amountInput = group.querySelector('input[type="text"]:last-child');
+                        nameInput.name = `Recipe.Ingredients[${index}].Name`;
+                        amountInput.name = `Recipe.Ingredients[${index}].Amount`;
+                    });
+                    ingredientIndex--;
                 }
             });
         });
+
     </script>
 }

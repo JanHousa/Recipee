@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Recipee.Models;
+﻿using Recipee.Models;
+using System;
+using System.Collections.Generic;
 
 public class Recipe
 {
@@ -11,11 +12,14 @@ public class Recipe
     public DateTime CreatedDate { get; set; }
     public double AverageRating { get; set; }
     public string ImageUrl { get; set; }
+
+    // Add a property for storing reviews related to this recipe
+    public List<Review> Reviews { get; set; } = new List<Review>();
 }
 
 public class Ingredient
 {
-    public int Id { get; set; } // Přidání primárního klíče
+    public int Id { get; set; }
     public int RecipeId { get; set; }
     public string Name { get; set; }
     public string Amount { get; set; }
@@ -25,18 +29,17 @@ public class Ingredient
 public class User
 {
     public int Id { get; set; }
-    public string Username { get; set; }
+    public string UserName { get; set; }
     public string Email { get; set; }
     public string PasswordHash { get; set; }
-    public Boolean IsAdmin { get; set; } = false;
+    public bool IsAdmin { get; set; } // Fix the type here, assuming it's meant to be boolean
 }
-
 
 public class Review
 {
     public int Id { get; set; }
     public string UserId { get; set; }
-    public AppUser User { get; set; }
+    public AppUser User { get; set; } // Navigation property
     public int RecipeId { get; set; }
     public Recipe Recipe { get; set; }
     public int Rating { get; set; }

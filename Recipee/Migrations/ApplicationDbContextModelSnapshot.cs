@@ -219,7 +219,7 @@ namespace Recipee.Migrations
                         {
                             Id = 1,
                             AverageRating = 4.5,
-                            CreatedDate = new DateTime(2024, 4, 16, 20, 52, 39, 760, DateTimeKind.Local).AddTicks(9392),
+                            CreatedDate = new DateTime(2024, 4, 17, 0, 4, 20, 924, DateTimeKind.Local).AddTicks(7482),
                             Description = "Bohatý čokoládový dort s třemi vrstvami.",
                             ImageUrl = "url_k_obrazku_dortu",
                             Instructions = "Smíchejte suroviny a pečte na 180°C 50 minut.",
@@ -229,7 +229,7 @@ namespace Recipee.Migrations
                         {
                             Id = 2,
                             AverageRating = 4.0,
-                            CreatedDate = new DateTime(2024, 4, 16, 20, 52, 39, 760, DateTimeKind.Local).AddTicks(9426),
+                            CreatedDate = new DateTime(2024, 4, 17, 0, 4, 20, 924, DateTimeKind.Local).AddTicks(7522),
                             Description = "Klasický Caesar salát s kuřecím masem.",
                             ImageUrl = "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg",
                             Instructions = "Smíchejte a podávejte čerstvé.",
@@ -315,7 +315,7 @@ namespace Recipee.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC2QblKian6weMfhQWVy59jxlBwJvuNY+DVb3tSbwO8Q5LOCvlndy8anzApGnpJTqA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAHKiwPB7ngHgFg1vB0eTVGJcQbQu3AQwN2GyjSujTjs2V3DHLdFwBFZBQ0HL3gLTQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -420,7 +420,7 @@ namespace Recipee.Migrations
             modelBuilder.Entity("Review", b =>
                 {
                     b.HasOne("Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -439,6 +439,8 @@ namespace Recipee.Migrations
             modelBuilder.Entity("Recipe", b =>
                 {
                     b.Navigation("Ingredients");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
