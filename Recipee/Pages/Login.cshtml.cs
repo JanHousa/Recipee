@@ -1,17 +1,20 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;  // Pøidat, pokud již není pøidáno
 using System.ComponentModel.DataAnnotations;
 
-namespace Recipee.Pages 
+namespace Recipee.Pages
 {
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ILogger<LoginModel> _logger;  // Pøidat logger
 
-        public LoginModel(SignInManager<IdentityUser> signInManager)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)  // Pøidat ILogger do konstruktoru
         {
             _signInManager = signInManager;
+            _logger = logger;  // Inicializovat logger
         }
 
         [BindProperty]
@@ -30,23 +33,23 @@ namespace Recipee.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, false, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    return RedirectToPage("/Index");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
+                return Page();
             }
 
-            return Page();
+            var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, isPersistent: false, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                HttpContext.Session.SetString("UserEmail", Input.Email); // Ukládání emailu do session
+                return RedirectToPage("/Index");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return Page();
+            }
         }
 
     }
-
 }

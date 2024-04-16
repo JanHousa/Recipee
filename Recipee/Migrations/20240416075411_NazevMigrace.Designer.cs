@@ -11,8 +11,8 @@ using Recipee.Models;
 namespace Recipee.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240415215030_UpdateForidentity")]
-    partial class UpdateForidentity
+    [Migration("20240416075411_NazevMigrace")]
+    partial class NazevMigrace
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,7 +286,7 @@ namespace Recipee.Migrations
                         {
                             Id = 1,
                             AverageRating = 4.5,
-                            CreatedDate = new DateTime(2024, 4, 15, 23, 50, 30, 145, DateTimeKind.Local).AddTicks(7619),
+                            CreatedDate = new DateTime(2024, 4, 16, 9, 54, 10, 515, DateTimeKind.Local).AddTicks(8151),
                             Description = "Bohatý čokoládový dort s třemi vrstvami.",
                             ImageUrl = "url_k_obrazku_dortu",
                             Instructions = "Smíchejte suroviny a pečte na 180°C 50 minut.",
@@ -296,12 +296,35 @@ namespace Recipee.Migrations
                         {
                             Id = 2,
                             AverageRating = 4.0,
-                            CreatedDate = new DateTime(2024, 4, 15, 23, 50, 30, 145, DateTimeKind.Local).AddTicks(7660),
+                            CreatedDate = new DateTime(2024, 4, 16, 9, 54, 10, 515, DateTimeKind.Local).AddTicks(8209),
                             Description = "Klasický Caesar salát s kuřecím masem.",
                             ImageUrl = "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg",
                             Instructions = "Smíchejte a podávejte čerstvé.",
                             Title = "Caesar salát"
                         });
+                });
+
+            modelBuilder.Entity("User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Ingredient", b =>

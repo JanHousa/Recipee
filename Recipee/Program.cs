@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Recipee.Models;
@@ -6,39 +5,24 @@ using Recipee.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddControllers(); // If you are using APIs
+builder.Services.AddDistributedMemoryCache(); // Potøebné pro ukládání session do pamìti
 
-// Adding DbContext configuration for SQLite
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Nastavuje, jak dlouho mùže session zùstat neaktivní, než vyprší
+    options.Cookie.HttpOnly = true; // Zabraòuje pøístupu k session cookie pøes JavaScript
+    options.Cookie.IsEssential = true; // Oznaèuje cookie jako nezbytné pro funkènost aplikace
+});
+
+// Pokraèování s pøidáním DbContext a Identity jako již máte
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add Identity services and specify IdentityUser for the user's store
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.Configure<CookiePolicyOptions>(options =>
-{
-    options.CheckConsentNeeded = context => true; // Lze nastavit na false, pokud nevyžadujete souhlas s cookies
-    options.MinimumSameSitePolicy = SameSiteMode.None; // Upravte podle potøeby pro ovládání CSRF
-    options.Secure = CookieSecurePolicy.Always; // Zajistí, že cookies jsou vysílány pouze pøes HTTPS
-});
-
-
-
-
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.Cookie.HttpOnly = true; // Zabrání pøístupu k cookie pøes JavaScript
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Zajistí, že cookie jsou vysílány pouze pøes HTTPS
-        options.Cookie.SameSite = SameSiteMode.Lax; // Pomáhá zabránit CSRF útokùm
-        options.LoginPath = "/Login";
-        options.LogoutPath = "/Logout";
-        options.ExpireTimeSpan = TimeSpan.FromDays(30); // Nastaví životnost cookie
-    });
-
+builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -51,10 +35,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseCookiePolicy();
 app.UseRouting();
 
-app.UseAuthentication(); // This is crucial, ensures the authentication services are available
+app.UseSession(); // Pøidat session middleware do pipeline
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

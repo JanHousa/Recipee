@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Recipee.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateForidentity : Migration
+    public partial class NazevMigrace : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,6 +68,21 @@ namespace Recipee.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Username = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -202,8 +217,8 @@ namespace Recipee.Migrations
                 columns: new[] { "Id", "AverageRating", "CreatedDate", "Description", "ImageUrl", "Instructions", "Title" },
                 values: new object[,]
                 {
-                    { 1, 4.5, new DateTime(2024, 4, 15, 23, 50, 30, 145, DateTimeKind.Local).AddTicks(7619), "Bohatý čokoládový dort s třemi vrstvami.", "url_k_obrazku_dortu", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
-                    { 2, 4.0, new DateTime(2024, 4, 15, 23, 50, 30, 145, DateTimeKind.Local).AddTicks(7660), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
+                    { 1, 4.5, new DateTime(2024, 4, 16, 9, 54, 10, 515, DateTimeKind.Local).AddTicks(8151), "Bohatý čokoládový dort s třemi vrstvami.", "url_k_obrazku_dortu", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
+                    { 2, 4.0, new DateTime(2024, 4, 16, 9, 54, 10, 515, DateTimeKind.Local).AddTicks(8209), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
                 });
 
             migrationBuilder.InsertData(
@@ -274,6 +289,9 @@ namespace Recipee.Migrations
 
             migrationBuilder.DropTable(
                 name: "Ingredients");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
