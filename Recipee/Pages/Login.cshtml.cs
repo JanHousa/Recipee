@@ -2,16 +2,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;  // Pøidat, pokud již není pøidáno
+using Recipee.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Recipee.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;  // Pøidat logger
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)  // Pøidat ILogger do konstruktoru
+        public LoginModel(SignInManager<AppUser> signInManager, ILogger<LoginModel> logger)  // Pøidat ILogger do konstruktoru
         {
             _signInManager = signInManager;
             _logger = logger;  // Inicializovat logger

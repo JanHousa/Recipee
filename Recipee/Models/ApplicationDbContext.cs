@@ -6,12 +6,12 @@ using System;
 namespace Recipee.Models
 {
     // DbContext je nyní IdentityDbContext, který přijímá IdentityUser jako výchozí typ uživatele.
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<User> Users { get; set; }
+        public DbSet<AppUser> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; } // Přidán DbSet pro Ingredient
 
@@ -48,7 +48,28 @@ namespace Recipee.Models
 
             modelBuilder.Entity<Ingredient>().HasData(
                 new Ingredient { Id = 1, RecipeId = 1, Name = "Čokoláda", Amount = "200g" }
-                // Přidat další ingredience pokud potřebujete
+            // Přidat další ingredience pokud potřebujete
+            );
+
+            // Přidání seed dat pro Users
+            
+            modelBuilder.Entity<AppUser>().HasData(
+                new AppUser
+                {
+                    Id = "1",
+                    UserName = "admin",
+                    NormalizedUserName = "ADMIN",
+                    Email = "admin@example.com",
+                    NormalizedEmail = "ADMIN@EXAMPLE.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = new PasswordHasher<AppUser>().HashPassword(null, "admin"),
+                    SecurityStamp = string.Empty,
+                    ConcurrencyStamp = string.Empty,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    IsAdmin = true
+                }
+
             );
         }
     }

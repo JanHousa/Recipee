@@ -32,6 +32,7 @@ namespace Recipee.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -78,7 +79,8 @@ namespace Recipee.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Username = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: false)
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -213,12 +215,17 @@ namespace Recipee.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "IsAdmin", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "admin-id", 0, "", "admin@example.com", true, true, true, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEEaWPOFVyh1i1FAvWalM0By+ID3TQydXQ+/AtrRCITpoIl+P0r89u5EKiefiyBqapw==", null, false, "", false, "admin" });
+
+            migrationBuilder.InsertData(
                 table: "Recipes",
                 columns: new[] { "Id", "AverageRating", "CreatedDate", "Description", "ImageUrl", "Instructions", "Title" },
                 values: new object[,]
                 {
-                    { 1, 4.5, new DateTime(2024, 4, 16, 11, 59, 1, 322, DateTimeKind.Local).AddTicks(8607), "Bohatý čokoládový dort s třemi vrstvami.", "url_k_obrazku_dortu", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
-                    { 2, 4.0, new DateTime(2024, 4, 16, 11, 59, 1, 322, DateTimeKind.Local).AddTicks(8691), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
+                    { 1, 4.5, new DateTime(2024, 4, 16, 12, 40, 50, 867, DateTimeKind.Local).AddTicks(9857), "Bohatý čokoládový dort s třemi vrstvami.", "url_k_obrazku_dortu", "Smíchejte suroviny a pečte na 180°C 50 minut.", "Čokoládový dort" },
+                    { 2, 4.0, new DateTime(2024, 4, 16, 12, 40, 50, 867, DateTimeKind.Local).AddTicks(9937), "Klasický Caesar salát s kuřecím masem.", "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg", "Smíchejte a podávejte čerstvé.", "Caesar salát" }
                 });
 
             migrationBuilder.InsertData(
