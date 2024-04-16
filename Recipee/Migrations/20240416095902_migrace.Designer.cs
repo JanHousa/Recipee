@@ -11,8 +11,8 @@ using Recipee.Models;
 namespace Recipee.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240416075411_NazevMigrace")]
-    partial class NazevMigrace
+    [Migration("20240416095902_migrace")]
+    partial class migrace
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,7 +286,7 @@ namespace Recipee.Migrations
                         {
                             Id = 1,
                             AverageRating = 4.5,
-                            CreatedDate = new DateTime(2024, 4, 16, 9, 54, 10, 515, DateTimeKind.Local).AddTicks(8151),
+                            CreatedDate = new DateTime(2024, 4, 16, 11, 59, 1, 322, DateTimeKind.Local).AddTicks(8607),
                             Description = "Bohatý čokoládový dort s třemi vrstvami.",
                             ImageUrl = "url_k_obrazku_dortu",
                             Instructions = "Smíchejte suroviny a pečte na 180°C 50 minut.",
@@ -296,7 +296,7 @@ namespace Recipee.Migrations
                         {
                             Id = 2,
                             AverageRating = 4.0,
-                            CreatedDate = new DateTime(2024, 4, 16, 9, 54, 10, 515, DateTimeKind.Local).AddTicks(8209),
+                            CreatedDate = new DateTime(2024, 4, 16, 11, 59, 1, 322, DateTimeKind.Local).AddTicks(8691),
                             Description = "Klasický Caesar salát s kuřecím masem.",
                             ImageUrl = "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg",
                             Instructions = "Smíchejte a podávejte čerstvé.",
