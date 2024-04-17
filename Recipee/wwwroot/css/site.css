@@ -18,8 +18,17 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: 'Arial', sans-serif;
 }
+
+body {
+    background-image: url('/css/background.jpg'); /* Nastavte cestu k vašemu obrázku */
+    background-size: cover; /* Zajistí, že obrázek pokryje celou oblast */
+    background-position: center; /* Centruje obrázek na stránce */
+    background-repeat: no-repeat; /* Zabrání opakování obrázku */
+}
+
 
 .recipe-card {
     border: 1px solid #ddd;
@@ -44,6 +53,9 @@ body {
     transition: 0.3s;
     width: 300px;
     margin: 10px;
+    background: rgba(255, 255, 255, 0.5); /* Bílé pozadí s 50% prùhledností */
+    backdrop-filter: blur(10px); /* Rovmazaný efekt pro všechny prvky za kartou */
+    border-radius: 15px; /* Zaoblené rohy pro lepší vizuální efekt */
 }
 
     .recipe-card img {
@@ -153,6 +165,9 @@ a {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     border-radius: 8px;
+    background: rgba(255, 255, 255, 0.5); /* Bílé pozadí s 50% prùhledností */
+    backdrop-filter: blur(10px); /* Rovmazaný efekt pro všechny prvky za kartou */
+    border-radius: 15px; /* Zaoblené rohy pro lepší vizuální efekt */
 }
 
 /* Styling for review entries */
@@ -233,3 +248,156 @@ a {
 .fa-star.checked {
     color: orange;
 }
+
+
+
+
+.recipe-container {
+    background-image: url('path_to_left_image.jpg'), url('path_to_right_image.jpg');
+    background-position: left top, right top;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 20% auto, 20% auto; /* Adjust the size based on your design needs */
+    padding: 30px 15% 30px 15%; /* Padding to push content away from the images */
+    background: rgba(255, 255, 255, 0.5); /* Bílé pozadí s 50% prùhledností */
+    backdrop-filter: blur(10px); /* Rovmazaný efekt pro všechny prvky za kartou */
+    border-radius: 15px; /* Zaoblené rohy pro lepší vizuální efekt */
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    color: #333; /* Dark text for better readability */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.input-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Make sure padding and border are included in the width */
+}
+
+
+.login-container {
+    max-width: 320px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .login-container label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .login-container input[type='text'],
+    .login-container input[type='password'] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+
+    .login-container button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        background: #5cb85c;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .login-container button:hover {
+            background: #4cae4c;
+        }
+
+    .login-container a {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+.asp-validation-summary {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.asp-validation-for {
+    color: red;
+    font-size: 0.8em;
+}
+
+
+
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.validation-summary {
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+    .btn-success:hover {
+        color: #fff;
+        background-color: #218838;
+        border-color: #1e7e34;
+    }

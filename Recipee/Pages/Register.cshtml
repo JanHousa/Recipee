@@ -1,22 +1,30 @@
 ﻿@page
 @model RegisterModel
 
-<form method="post">
-    <div asp-validation-summary="All"></div>
-    <div>
-        <label asp-for="Input.Email"></label>
-        <input asp-for="Input.Email" />
-        <span asp-validation-for="Input.Email"></span>
-    </div>
-    <div>
-        <label asp-for="Input.Password"></label>
-        <input asp-for="Input.Password" type="password" />
-        <span asp-validation-for="Input.Password"></span>
-    </div>
-    <div>
-        <label asp-for="Input.ConfirmPassword"></label>
-        <input asp-for="Input.ConfirmPassword" type="password" />
-        <span asp-validation-for="Input.ConfirmPassword"></span>
-    </div>
-    <button type="submit">Registrovat</button>
-</form>
+<div class="register-container">
+    <h2>Registrace</h2>
+
+    <form method="post" class="register-form">
+        <div asp-validation-summary="All" class="validation-summary"></div>
+
+        <div class="form-group">
+            <label asp-for="Input.Email" class="form-label">Email</label>
+            <input asp-for="Input.Email" class="form-control" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Input.Password" class="form-label">Heslo</label>
+            <input asp-for="Input.Password" type="password" class="form-control" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Input.ConfirmPassword" class="form-label">Potvrzení hesla</label>
+            <input asp-for="Input.ConfirmPassword" type="password" class="form-control" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">Registrovat</button>
+    </form>
+</div>

@@ -11,8 +11,8 @@ using Recipee.Models;
 namespace Recipee.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240416223650_databaze")]
-    partial class databaze
+    [Migration("20240417223651_MigraceCreate")]
+    partial class MigraceCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,7 +271,7 @@ namespace Recipee.Migrations
                         {
                             Id = 1,
                             AverageRating = 4.5,
-                            CreatedDate = new DateTime(2024, 4, 17, 0, 36, 50, 250, DateTimeKind.Local).AddTicks(3578),
+                            CreatedDate = new DateTime(2024, 4, 18, 0, 36, 51, 647, DateTimeKind.Local).AddTicks(9585),
                             Description = "Bohatý čokoládový dort s třemi vrstvami.",
                             ImageUrl = "https://vikendovepeceni.cz/wp-content/uploads/2021/09/cokoladovy-dort-03.jpg",
                             Instructions = "Smíchejte suroviny a pečte na 180°C 50 minut.",
@@ -281,7 +281,7 @@ namespace Recipee.Migrations
                         {
                             Id = 2,
                             AverageRating = 4.0,
-                            CreatedDate = new DateTime(2024, 4, 17, 0, 36, 50, 250, DateTimeKind.Local).AddTicks(3613),
+                            CreatedDate = new DateTime(2024, 4, 18, 0, 36, 51, 647, DateTimeKind.Local).AddTicks(9626),
                             Description = "Klasický Caesar salát s kuřecím masem.",
                             ImageUrl = "https://receptypanicuby.cz/wp-content/uploads/2020/08/caesar-salat-recept-5.jpg",
                             Instructions = "Smíchejte a podávejte čerstvé.",
@@ -360,16 +360,16 @@ namespace Recipee.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0c64260a-273e-4cd7-bade-37e407124af1",
+                            ConcurrencyStamp = "65e78d23-b659-40c9-b82c-c295d6b5d5ab",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             IsAdmin = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIY52MRlwIbsUWOxRgPwpm4+ym1I81K5KH2RXEtEANUFGTn3fCwuj3IJlZ66rXNZkw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBVY80L1QPzJs+AuQ5GVvDDEwbiY80CDJ5Q7DHqdGDrBFTVstpeOXjwPeGTwODg/dA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4917c76c-b809-4710-a970-23aed457a8e8",
+                            SecurityStamp = "71e99115-0976-4094-a794-6081c152457f",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -411,7 +411,7 @@ namespace Recipee.Migrations
                         {
                             Id = 1,
                             Comment = "Skvělý dort!",
-                            CreatedDate = new DateTime(2024, 4, 17, 0, 36, 50, 289, DateTimeKind.Local).AddTicks(3372),
+                            CreatedDate = new DateTime(2024, 4, 18, 0, 36, 51, 686, DateTimeKind.Local).AddTicks(7606),
                             Rating = 4,
                             RecipeId = 1,
                             UserId = "1"

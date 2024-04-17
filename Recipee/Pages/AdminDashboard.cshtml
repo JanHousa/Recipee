@@ -129,20 +129,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var review in Model.Reviews)
-                        {
-                            <tr>
-                                <td>@review.Recipe.Title</td>
-                                <td>@review.User.Email</td>
-                                <td>@review.Rating</td>
-                                <td>@review.Comment</td>
-                                <td>
-                                    <form method="post" asp-page-handler="DeleteReview" asp-route-id="@review.Id">
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        }
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <div class="review-entry">
+                            <p><strong>@review.UserId ?? "Unknown User"</strong>: @review.Comment</p>
+                            <div class="stars-outer">
+                                @for (int i = 0; i < 5; i++)
+                                {
+                                    <span class="fa fa-star @(i < review.Rating ? "checked" : "")"></span>
+                                }
+                            </div>
+                        </div>
+                    }
+
                     </tbody>
                 </table>
             </div>

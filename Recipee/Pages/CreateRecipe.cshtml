@@ -5,46 +5,47 @@
     <link href="~/css/CreateRecipe.css" rel="stylesheet">
 </head>
 
-<div class="recipe-container ">
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="Recipe.Title"></label>
-            <input asp-for="Recipe.Title" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Recipe.Description"></label>
-            <textarea asp-for="Recipe.Description" class="form-control"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Ingredients</label>
-            <div class="ingredients-container">
-                <!-- Ingredients will be added here -->
+<div class="recipe-container">
+    <div class="card">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Recipe.Title"></label>
+                <input asp-for="Recipe.Title" class="form-control input-control" />
             </div>
-            <button type="button" id="addIngredient" class="btn btn-info">Add Ingredient</button>
-        </div>
 
-        <div class="form-group">
-            <label asp-for="Recipe.Instructions"></label>
-            <textarea asp-for="Recipe.Instructions" class="form-control"></textarea>
-        </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Description"></label>
+                <textarea asp-for="Recipe.Description" class="form-control input-control"></textarea>
+            </div>
 
-        <div class="form-group">
-            <label asp-for="Recipe.ImageUrl"></label>
-            <input asp-for="Recipe.ImageUrl" class="form-control" />
-        </div>
+            <div class="form-group">
+                <label>Ingredients</label>
+                <div class="ingredients-container">
+                    <!-- Ingredients will be added here -->
+                </div>
+                <button type="button" id="addIngredient" class="btn btn-info">Add Ingredient</button>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            <div class="form-group">
+                <label asp-for="Recipe.Instructions"></label>
+                <textarea asp-for="Recipe.Instructions" class="form-control input-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Recipe.ImageUrl"></label>
+                <input asp-for="Recipe.ImageUrl" class="form-control input-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </div>
-
 
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const container = document.querySelector('.ingredients-container');
-            let ingredientIndex = 0; // Keep track of the ingredient index
+            let ingredientIndex = document.querySelectorAll('.ingredient-group').length; // Začínáme s aktuálním počtem
 
             document.getElementById('addIngredient').addEventListener('click', function () {
                 const ingredientHtml = `

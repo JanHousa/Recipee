@@ -19,7 +19,7 @@ public class DetailModel : PageModel
     }
 
     public Recipe Recipe { get; set; }
-    public List<Review> Reviews { get; set; }
+    public IList<Review> Reviews { get; set; }
 
     [BindProperty]
     public Review NewReview { get; set; }
@@ -28,22 +28,32 @@ public class DetailModel : PageModel
     {
         Recipe = await _context.Recipes
                                .Include(r => r.Reviews)
-                                   .ThenInclude(review => review.User) // Load reviewers
-                               .Include(r => r.Ingredients) // Make sure to load ingredients
+                                   .ThenInclude(review => review.User) // Ensure user data is loaded
+                               .Include(r => r.Ingredients)
+                               .AsNoTracking()
                                .FirstOrDefaultAsync(m => m.Id == id);
+
         if (Recipe == null)
         {
             return NotFound();
         }
-        Reviews = Recipe.Reviews ?? new List<Review>(); // Ensure Reviews is never null
+
+        Reviews = Recipe.Reviews ?? new List<Review>();
         return Page();
     }
 
 
 
 
+
     public async Task<IActionResult> OnPostAsync(int id)
     {
+        if (!ModelState.IsValid)
+        {
+            Recipe = await LoadRecipeAsync(id);
+            return Page();
+        }
+
         var user = await _userManager.GetUserAsync(User);
         if (user == null)
         {
@@ -51,42 +61,37 @@ public class DetailModel : PageModel
             return Page();
         }
 
-        Recipe = await _context.Recipes.Include(r => r.Reviews).FirstOrDefaultAsync(m => m.Id == id);
-        if (Recipe == null)
+        var newReview = new Review
         {
-            return NotFound("Recipe not found.");
-        }
+            UserId = user.Id, // Associate review with the logged-in user's ID
+            RecipeId = id,
+            Comment = NewReview.Comment,
+            Rating = NewReview.Rating,
+            CreatedDate = DateTime.UtcNow
+        };
 
-        if (!ModelState.IsValid)
-        {
-            // It's helpful to log or output the ModelState errors here
-            foreach (var error in ModelState.Values.SelectMany(m => m.Errors))
-            {
-                Debug.WriteLine(error.ErrorMessage);
-            }
-            return Page();
-        }
-
-        NewReview.UserId = user.Id; // This should be sufficient if the user is correctly attached
-        _context.Reviews.Add(NewReview);
-
+        _context.Reviews.Add(newReview);
         try
         {
             await _context.SaveChangesAsync();
+            return RedirectToPage(new { id = id });
         }
-        catch (Exception ex)
+        catch (DbUpdateException ex)
         {
-            // Log or output the exception message
-            Debug.WriteLine(ex.Message);
-            ModelState.AddModelError("", "An error occurred while saving the review.");
+            ModelState.AddModelError("", "An error occurred while saving the review: " + ex.Message);
             return Page();
         }
-
-        return RedirectToPage(new { id = id });
     }
 
 
 
+    private async Task<Recipe> LoadRecipeAsync(int id)
+    {
+        return await _context.Recipes
+                             .Include(r => r.Reviews) // Removed ThenInclude for User
+                             .Include(r => r.Ingredients)
+                             .FirstOrDefaultAsync(m => m.Id == id);
+    }
 
 
 }

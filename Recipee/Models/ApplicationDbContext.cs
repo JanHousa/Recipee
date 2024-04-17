@@ -35,14 +35,11 @@ namespace Recipee.Models
                 .WithOne(rv => rv.Recipe)
                 .HasForeignKey(rv => rv.RecipeId);
 
-            // Configure Review and User relationship
             modelBuilder.Entity<Review>()
-                .HasOne<AppUser>(r => r.User)
-                .WithMany() // Assuming no navigation property back from User to Reviews
-                .HasForeignKey(r => r.UserId)
-                .IsRequired();
-
-            // Seed data for Recipes
+        .HasOne(r => r.User) // One Review belongs to one User
+        .WithMany() // User can have many Reviews
+        .HasForeignKey(r => r.UserId) // Foreign key in the Review table
+        .IsRequired(); // Makes the UserId required
             modelBuilder.Entity<Recipe>().HasData(
                 new Recipe
                 {
@@ -101,16 +98,17 @@ namespace Recipee.Models
             );
 
             modelBuilder.Entity<Review>().HasData(
-                               new Review
-                               {
+                new Review
+                {
                     Id = 1,
-                    UserId = "1",
+                    UserId = "1", // Add the UserId property
                     RecipeId = 1,
                     Rating = 4,
                     Comment = "Skvělý dort!",
                     CreatedDate = DateTime.Now
                 }
-                                          );
+            );
+
         }
 
     }

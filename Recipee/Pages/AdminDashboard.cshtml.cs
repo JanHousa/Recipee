@@ -31,7 +31,7 @@ namespace Recipee.Pages
                 await _context.Users.Where(u => u.Email.Contains(keyword) || u.UserName.Contains(keyword)).ToListAsync();
 
             Recipes = await _context.Recipes.Include(r => r.Ingredients).ToListAsync();
-            Reviews = await _context.Reviews.Include(r => r.User).ToListAsync();
+            Reviews = await _context.Reviews.ToListAsync(); // Changed from Include(r => r.User) because User property does not exist anymore
         }
 
         public async Task<IActionResult> OnPostDeleteUserAsync(string id)
